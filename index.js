@@ -1,8 +1,8 @@
-let blur;
-
 /**
  * BLUR
  */
+let blur;
+
 const addBlur = () => {
   blur = document.createElement("div");
   blur.classList.add("blur");
@@ -30,7 +30,6 @@ const enableScrolling = () => {
 let popup;
 
 const addCookiePopup = async () => {
-  disableScrolling();
   popup = await createCookiePopup();
   document.body.appendChild(popup);
 };
@@ -59,37 +58,48 @@ const createCookieTitle = (title) => {
 };
 
 const createCookiePopupVendorForm = async () => {
+  const vendorInputName = "vendors[]";
   const saveVendorsInCookie = (event) => {
-    const inputs = event.target.elements["vendors[]"];
+    const inputs = event.target.elements[vendorInputName];
     const values = Array.from(inputs)
       .filter((input) => input.checked)
-      .map((input) => ({ value: input.checked, id: input.dataset.id }));
+      .map((input) => ({
+        value: input.checked,
+        id: parseInt(input.dataset.id),
+      }));
     console.log({ values });
   };
   const handleSubmit = (event) => {
     saveVendorsInCookie(event);
-    removeBlur();
-    removeCookiePopup();
+    teardown();
+  };
+  const onReject = () => {
+    const inputs = form.elements[vendorInputName];
+    for (const input of inputs) {
+      input.checked = false;
+    }
   };
   const form = document.createElement("form");
   form.addEventListener("submit", handleSubmit);
 
-  const vendorList = await createCookiePopupVendorList();
+  const vendorList = await createCookiePopupVendorList(vendorInputName);
   form.append(...vendorList);
 
-  const [accept, reject] = createCookiePopupFormButtons();
+  const [accept, reject] = createCookiePopupFormButtons({ onReject });
   form.append(accept, reject);
 
   return form;
 };
 
-const createCookiePopupVendorList = async () => {
+const createCookiePopupVendorList = async (inputName) => {
   const { vendors } = await fetchVendors();
-  const vendorComponents = Object.values(vendors).map(createCookiePopupVendor);
+  const vendorComponents = Object.values(vendors).map((vendor) =>
+    createCookiePopupVendor({ ...vendor, inputName })
+  );
   return vendorComponents;
 };
 
-const createCookiePopupVendor = ({ name, policyUrl }) => {
+const createCookiePopupVendor = ({ id, name, policyUrl, inputName }) => {
   const vendorComponent = document.createElement("li");
 
   const nameComponent = document.createElement("p");
@@ -98,43 +108,40 @@ const createCookiePopupVendor = ({ name, policyUrl }) => {
   const policyUrlComponent = document.createElement("p");
   policyUrlComponent.innerText = policyUrl;
 
-  const slider = createCookiePopupVendorSlider();
+  const slider = createCookiePopupVendorSlider({ inputName, vendorId: id });
 
   vendorComponent.append(nameComponent, policyUrlComponent, slider);
 
   return vendorComponent;
 };
 
-const createCookiePopupVendorSlider = () => {
+const createCookiePopupVendorSlider = ({ inputName, vendorId }) => {
   const label = document.createElement("label");
   label.classList.add("switch");
 
-  const input = document.createElement("input");
-  input.type = "checkbox";
-  input.name = "vendors[]";
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.name = inputName;
+  checkbox.dataset.id = vendorId;
 
-  const span = document.createElement("span");
-  span.classList.add("slider", "round");
+  const slider = createCheckboxSlider();
 
-  label.append(input, span);
+  label.append(checkbox, slider);
 
   return label;
 };
 
-const createCookiePopupFormButtons = () => {
-  const accept = createCookiePopupFormAcceptButton();
-  const reject = createCookiePopupFormRejectButton();
+const createCheckboxSlider = () => {
+  const span = document.createElement("span");
+  span.classList.add("slider", "round");
+  return span;
+};
+
+const createCookiePopupFormButtons = ({ onReject }) => {
+  const accept = createButton({ text: "Accept" });
+  const reject = createButton({ text: "Reject", onClick: onReject });
 
   return [accept, reject];
-};
-
-const createCookiePopupFormAcceptButton = () => {
-  return createButton({ text: "Accept" });
-};
-
-const createCookiePopupFormRejectButton = () => {
-  const onClick = () => {};
-  return createButton({ text: "Reject", onClick });
 };
 
 const createButton = ({ text, onClick, type }) => {
@@ -146,7 +153,6 @@ const createButton = ({ text, onClick, type }) => {
 };
 
 const removeCookiePopup = () => {
-  enableScrolling();
   popup.remove();
 };
 
@@ -170,6 +176,18 @@ const wrapInModal = (element) => {
   return modal;
 };
 
+const setup = async () => {
+  disableScrolling();
+  addBlur();
+  await addCookiePopup();
+};
+
+const teardown = () => {
+  removeCookiePopup();
+  removeBlur();
+  enableScrolling();
+};
+
 /**
  * FETCHING VENDORS
  */
@@ -180,6 +198,5 @@ const fetchVendors = async () => {
 };
 
 window.onload = async () => {
-  addBlur();
-  await addCookiePopup();
+  await setup();
 };
