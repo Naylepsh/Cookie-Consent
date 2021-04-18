@@ -4,9 +4,14 @@
 let blur;
 
 const addBlur = () => {
-  blur = document.createElement("div");
-  blur.classList.add("blur");
+  blur = createBlur();
   document.body.appendChild(blur);
+};
+
+const createBlur = () => {
+  const blur = document.createElement("div");
+  blur.classList.add("blur");
+  return blur;
 };
 
 const removeBlur = () => {
@@ -59,36 +64,42 @@ const createCookieTitle = (title) => {
 
 const createCookiePopupVendorForm = (vendors) => {
   const inputName = "vendors[]";
-  const saveVendorsInCookie = (event) => {
-    const inputs = event.target.elements[inputName];
-    const values = Array.from(inputs)
-      .filter((input) => input.checked)
-      .map((input) => ({
-        value: input.checked,
-        id: parseInt(input.dataset.id),
-      }));
-    console.log({ values });
-  };
+
   const handleSubmit = (event) => {
-    saveVendorsInCookie(event);
+    saveVendorsInCookie(event, inputName);
     teardown();
   };
-  const onReject = () => {
+
+  const handleReject = () => {
     const inputs = form.elements[inputName];
     for (const input of inputs) {
       input.checked = false;
     }
   };
+
   const form = document.createElement("form");
-  form.addEventListener("submit", handleSubmit);
+  form.addEventListener("submit", (event) => handleSubmit(event, inputName));
 
   const vendorList = createCookiePopupVendorList({ inputName, vendors });
   form.append(...vendorList);
 
-  const [accept, reject] = createCookiePopupFormButtons({ onReject });
+  const [accept, reject] = createCookiePopupFormButtons({
+    onReject: handleReject,
+  });
   form.append(accept, reject);
 
   return form;
+};
+
+const saveVendorsInCookie = (event, inputName) => {
+  const inputs = event.target.elements[inputName];
+  const values = Array.from(inputs)
+    .filter((input) => input.checked)
+    .map((input) => ({
+      value: input.checked,
+      id: parseInt(input.dataset.id),
+    }));
+  console.log({ values });
 };
 
 const createCookiePopupVendorList = ({ inputName, vendors }) => {
@@ -152,7 +163,9 @@ const createButton = ({ text, onClick, type }) => {
 };
 
 const removeCookiePopup = () => {
-  popup.remove();
+  if (popup) {
+    popup.remove();
+  }
 };
 
 /**
