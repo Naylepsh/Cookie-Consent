@@ -33,6 +33,7 @@ const enableScrolling = () => {
  * COOKIE POPUP
  */
 let popup;
+const COOKIE_NAME = "acceptedVendors";
 
 const addCookiePopup = (vendors) => {
   popup = createCookiePopup(vendors);
@@ -93,13 +94,23 @@ const createCookiePopupVendorForm = (vendors) => {
 
 const saveVendorsInCookie = (event, inputName) => {
   const inputs = event.target.elements[inputName];
-  const values = Array.from(inputs)
+  const acceptedVendors = Array.from(inputs)
     .filter((input) => input.checked)
     .map((input) => ({
-      value: input.checked,
       id: parseInt(input.dataset.id),
     }));
-  console.log({ values });
+
+  saveCookie(
+    COOKIE_NAME,
+    JSON.stringify(acceptedVendors),
+    addHours(new Date(), 24)
+  );
+};
+
+const addHours = (date, hours) => {
+  const copy = new Date(date);
+  copy.setTime(copy.getTime() + hours * 60 * 60 * 1000);
+  return copy;
 };
 
 const createCookiePopupVendorList = ({ inputName, vendors }) => {
@@ -189,16 +200,31 @@ const wrapInModal = (element) => {
 };
 
 const setup = async () => {
-  const { vendors } = await fetchVendors();
-  disableScrolling();
-  addBlur();
-  addCookiePopup(vendors);
+  if (!hasCookie(COOKIE_NAME)) {
+    const { vendors } = await fetchVendors();
+    disableScrolling();
+    addBlur();
+    addCookiePopup(vendors);
+  }
 };
 
 const teardown = () => {
   removeCookiePopup();
   removeBlur();
   enableScrolling();
+};
+
+/**
+ * COOKIE UTILS
+ */
+const saveCookie = (key, value, expiresIn) => {
+  document.cookie = `${key}=${value}; expires=${expiresIn}`;
+};
+
+const hasCookie = (key) => {
+  return document.cookie
+    .split(";")
+    .some((item) => item.trim().startsWith(`${key}=`));
 };
 
 /**
