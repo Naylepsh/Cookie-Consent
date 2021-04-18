@@ -59,7 +59,20 @@ const createCookieTitle = (title) => {
 };
 
 const createCookiePopupVendorForm = async () => {
+  const saveVendorsInCookie = (event) => {
+    const inputs = event.target.elements["vendors[]"];
+    const values = Array.from(inputs)
+      .filter((input) => input.checked)
+      .map((input) => ({ value: input.checked, id: input.dataset.id }));
+    console.log({ values });
+  };
+  const handleSubmit = (event) => {
+    saveVendorsInCookie(event);
+    removeBlur();
+    removeCookiePopup();
+  };
   const form = document.createElement("form");
+  form.addEventListener("submit", handleSubmit);
 
   const vendorList = await createCookiePopupVendorList();
   form.append(...vendorList);
@@ -98,6 +111,7 @@ const createCookiePopupVendorSlider = () => {
 
   const input = document.createElement("input");
   input.type = "checkbox";
+  input.name = "vendors[]";
 
   const span = document.createElement("span");
   span.classList.add("slider", "round");
@@ -115,24 +129,18 @@ const createCookiePopupFormButtons = () => {
 };
 
 const createCookiePopupFormAcceptButton = () => {
-  const onClick = () => {
-    removeBlur();
-    removeCookiePopup();
-  };
-  return createButton({ text: "Accept", onClick });
+  return createButton({ text: "Accept" });
 };
 
 const createCookiePopupFormRejectButton = () => {
-  const onClick = () => {
-    removeBlur();
-    removeCookiePopup();
-  };
+  const onClick = () => {};
   return createButton({ text: "Reject", onClick });
 };
 
-const createButton = ({ text, onClick }) => {
+const createButton = ({ text, onClick, type }) => {
   const button = document.createElement("button");
   button.innerText = text;
+  button.type = type;
   button.addEventListener("click", onClick);
   return button;
 };

@@ -11,7 +11,8 @@
     <label>Test field: <input type="checkbox" name="test[]" data-id=1></label>
     <label>Test field: <input type="checkbox" name="test[]" data-id=2></label>
     <br><br>
-    <button type="submit">Submit form</button>
+    <button type="submit" name="button1" value="button1">Submit form</button>
+    <button id="reject" type="submit" name="button2" value="button2">Submit form</button>
   </form>
   <p id="log"></p>
   <script>
@@ -23,8 +24,17 @@
       event.preventDefault();
     }
 
+    function setAllToFalse() {
+      const inputs = form.elements['test[]']
+      for (const input of inputs) {
+        input.checked = false
+      }
+    }
+
     const form = document.getElementById('form');
     const log = document.getElementById('log');
+    const rejectButton = document.getElementById('reject')
+    reject.addEventListener('click', setAllToFalse)
     form.addEventListener('submit', logSubmit);
   </script>
 </body>
