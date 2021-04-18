@@ -76,13 +76,33 @@ const createCookiePopupVendorList = async () => {
 
 const createCookiePopupVendor = ({ name, policyUrl }) => {
   const vendorComponent = document.createElement("li");
+
   const nameComponent = document.createElement("p");
   nameComponent.innerText = name;
+
   const policyUrlComponent = document.createElement("p");
   policyUrlComponent.innerText = policyUrl;
 
-  vendorComponent.append(nameComponent, policyUrlComponent);
+  const slider = createCookiePopupVendorSlider();
+
+  vendorComponent.append(nameComponent, policyUrlComponent, slider);
+
   return vendorComponent;
+};
+
+const createCookiePopupVendorSlider = () => {
+  const label = document.createElement("label");
+  label.classList.add("switch");
+
+  const input = document.createElement("input");
+  input.type = "checkbox";
+
+  const span = document.createElement("span");
+  span.classList.add("slider", "round");
+
+  label.append(input, span);
+
+  return label;
 };
 
 const removeCookiePopup = () => {
