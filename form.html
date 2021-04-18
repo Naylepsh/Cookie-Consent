@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form id="form">
+    <label>Test field: <input type="checkbox" name="test[]" data-id=1></label>
+    <label>Test field: <input type="checkbox" name="test[]" data-id=2></label>
+    <br><br>
+    <button type="submit">Submit form</button>
+  </form>
+  <p id="log"></p>
+  <script>
+    function logSubmit(event) {
+      const inputs = event.target.elements['test[]']
+      const values = Array.from(inputs).map(input => ({ value: input.checked, id: input.dataset.id}))
+      console.log(values)
+      log.textContent = `Form Submitted! Time stamp: ${event.timeStamp}`;
+      event.preventDefault();
+    }
+
+    const form = document.getElementById('form');
+    const log = document.getElementById('log');
+    form.addEventListener('submit', logSubmit);
+  </script>
+</body>
+</html>

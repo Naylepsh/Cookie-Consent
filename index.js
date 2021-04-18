@@ -37,14 +37,10 @@ const addCookiePopup = async () => {
 
 const createCookiePopup = async () => {
   const container = createCookiePopupContainer();
+
   const title = createCookieTitle("GDPR Consent");
-  container.appendChild(title);
-
-  const vendorList = await createCookiePopupVendorList();
-  container.append(...vendorList);
-
-  const [accept, reject] = createCookiePopupFormButtons();
-  container.append(accept, reject);
+  const form = await createCookiePopupVendorForm();
+  container.append(title, form);
 
   return wrapInModal(container);
 };
@@ -60,6 +56,18 @@ const createCookieTitle = (title) => {
   titleComponent.classList.add("cookie-pop-up-title");
   titleComponent.innerText = title;
   return titleComponent;
+};
+
+const createCookiePopupVendorForm = async () => {
+  const form = document.createElement("form");
+
+  const vendorList = await createCookiePopupVendorList();
+  form.append(...vendorList);
+
+  const [accept, reject] = createCookiePopupFormButtons();
+  form.append(accept, reject);
+
+  return form;
 };
 
 const createCookiePopupVendorList = async () => {
