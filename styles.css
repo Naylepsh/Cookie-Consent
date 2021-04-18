@@ -31,8 +31,19 @@ body {
   z-index: var(--blur-z-index);
 }
 
-.box {
-  z-index: var(--blur-z-index + 1);
+.cookie-pop-up {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: calc(var(--blur-z-index) + 1);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cookie-pop-up-container {
+  margin-top: 20px;
+  width: 80%;
   color: black;
   border: 5px solid black;
   padding: 20px 40px;

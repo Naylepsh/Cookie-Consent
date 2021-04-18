@@ -29,18 +29,48 @@ const enableScrolling = () => {
 /**
  * COOKIE POPUP
  */
+let popup;
+
 const addCookiePopup = () => {
   disableScrolling();
+  popup = createCookiePopup();
+  document.body.appendChild(popup);
+};
+
+const createCookiePopup = () => {
+  const popup = document.createElement("div");
+  popup.classList.add("cookie-pop-up");
+
+  const container = createCookiePopupContainer();
+  const title = createCookieTitle("Sample Title");
+
+  container.appendChild(title);
+  popup.appendChild(container);
+
+  return popup;
+};
+
+const createCookiePopupContainer = () => {
+  const container = document.createElement("div");
+  container.classList.add("cookie-pop-up-container");
+  return container;
+};
+
+const createCookieTitle = (title) => {
+  const titleComponent = document.createElement("p");
+  titleComponent.innerText = title;
+  return titleComponent;
 };
 
 const removeCookiePopup = () => {
   enableScrolling();
+  popup.remove();
 };
 
 window.onload = () => {
   addBlur();
   addCookiePopup();
-  setTimeout(() => {
-    removeBlur(), enableScrolling();
-  }, 5000);
+  // setTimeout(() => {
+  //   removeBlur(), removeCookiePopup();
+  // }, 5000);
 };
