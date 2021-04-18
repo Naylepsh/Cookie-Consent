@@ -50,6 +50,9 @@ const createCookiePopup = async () => {
   const vendorList = await createCookiePopupVendorList();
   container.append(...vendorList);
 
+  const [accept, reject] = createCookiePopupFormButtons();
+  container.append(accept, reject);
+
   popup.appendChild(container);
 
   return popup;
@@ -105,6 +108,36 @@ const createCookiePopupVendorSlider = () => {
   return label;
 };
 
+const createCookiePopupFormButtons = () => {
+  const accept = createCookiePopupFormAcceptButton();
+  const reject = createCookiePopupFormRejectButton();
+
+  return [accept, reject];
+};
+
+const createCookiePopupFormAcceptButton = () => {
+  const onClick = () => {
+    removeBlur();
+    removeCookiePopup();
+  };
+  return createButton({ text: "Accept", onClick });
+};
+
+const createCookiePopupFormRejectButton = () => {
+  const onClick = () => {
+    removeBlur();
+    removeCookiePopup();
+  };
+  return createButton({ text: "Reject", onClick });
+};
+
+const createButton = ({ text, onClick }) => {
+  const button = document.createElement("button");
+  button.innerText = text;
+  button.addEventListener("click", onClick);
+  return button;
+};
+
 const removeCookiePopup = () => {
   enableScrolling();
   popup.remove();
@@ -122,7 +155,4 @@ const fetchVendors = async () => {
 window.onload = async () => {
   addBlur();
   await addCookiePopup();
-  // setTimeout(() => {
-  //   removeBlur(), removeCookiePopup();
-  // }, 5000);
 };
