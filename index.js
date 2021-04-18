@@ -17,15 +17,11 @@ const removeBlur = () => {
  * SCROLLING
  */
 const disableScrolling = () => {
-  for (const child of document.body.children) {
-    child.classList.add("disable-scroll");
-  }
+  document.body.classList.add("disable-scroll");
 };
 
 const enableScrolling = () => {
-  for (const child of document.body.children) {
-    child.classList.remove("disable-scroll");
-  }
+  document.body.classList.remove("disable-scroll");
 };
 
 /**
@@ -40,9 +36,6 @@ const addCookiePopup = async () => {
 };
 
 const createCookiePopup = async () => {
-  const popup = document.createElement("div");
-  popup.classList.add("cookie-pop-up");
-
   const container = createCookiePopupContainer();
   const title = createCookieTitle("GDPR Consent");
   container.appendChild(title);
@@ -53,14 +46,12 @@ const createCookiePopup = async () => {
   const [accept, reject] = createCookiePopupFormButtons();
   container.append(accept, reject);
 
-  popup.appendChild(container);
-
-  return popup;
+  return wrapInModal(container);
 };
 
 const createCookiePopupContainer = () => {
   const container = document.createElement("div");
-  container.classList.add("cookie-pop-up-container");
+  container.classList.add("container", "cookie-popup");
   return container;
 };
 
@@ -141,6 +132,26 @@ const createButton = ({ text, onClick }) => {
 const removeCookiePopup = () => {
   enableScrolling();
   popup.remove();
+};
+
+/**
+ * MODAL
+ */
+const wrapInModal = (element) => {
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+
+  const modalDialog = document.createElement("div");
+  modalDialog.classList.add("modal-dialog");
+
+  const modalBody = document.createElement("div");
+  modalBody.classList.add("modal-body");
+
+  modalBody.append(element);
+  modalDialog.append(modalBody);
+  modal.append(modalDialog);
+
+  return modal;
 };
 
 /**

@@ -9,15 +9,12 @@ body {
   width: 100%;
 }
 
-/* not needed for tool */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  height: 100%;
-  width: 80%;
+body {
+  overflow: auto;
+}
+
+body.disable-scroll {
+  overflow: hidden;
 }
 
 .blur {
@@ -31,27 +28,37 @@ body {
   z-index: var(--blur-z-index);
 }
 
-body > *.disable-scroll {
-  position: fixed;
-}
-
-.cookie-pop-up {
-  overflow: visible;
+.modal {
+  display: block !important;
   position: absolute;
   top: 0;
   left: 0;
   z-index: calc(var(--blur-z-index) + 1);
   width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
-.cookie-pop-up-container {
-  margin-top: 20px;
+.modal-dialog {
+  overflow-y: initial !important;
+}
+
+.modal-body {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 80%;
-  color: black;
   border: 5px solid black;
   padding: 20px 40px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.cookie-popup {
+  background: white;
 }
 
 .switch {
@@ -73,12 +80,13 @@ body > *.disable-scroll {
   position: absolute;
   cursor: pointer;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
   background-color: #ccc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  height: 34px;
+  width: 60px;
 }
 
 .slider:before {
