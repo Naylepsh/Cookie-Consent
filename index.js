@@ -29,16 +29,16 @@ const enableScrolling = () => {
  */
 let popup;
 
-const addCookiePopup = async () => {
-  popup = await createCookiePopup();
+const addCookiePopup = (vendors) => {
+  popup = createCookiePopup(vendors);
   document.body.appendChild(popup);
 };
 
-const createCookiePopup = async () => {
+const createCookiePopup = (vendors) => {
   const container = createCookiePopupContainer();
 
   const title = createCookieTitle("GDPR Consent");
-  const form = await createCookiePopupVendorForm();
+  const form = createCookiePopupVendorForm(vendors);
   container.append(title, form);
 
   return wrapInModal(container);
@@ -57,10 +57,10 @@ const createCookieTitle = (title) => {
   return titleComponent;
 };
 
-const createCookiePopupVendorForm = async () => {
-  const vendorInputName = "vendors[]";
+const createCookiePopupVendorForm = (vendors) => {
+  const inputName = "vendors[]";
   const saveVendorsInCookie = (event) => {
-    const inputs = event.target.elements[vendorInputName];
+    const inputs = event.target.elements[inputName];
     const values = Array.from(inputs)
       .filter((input) => input.checked)
       .map((input) => ({
@@ -74,7 +74,7 @@ const createCookiePopupVendorForm = async () => {
     teardown();
   };
   const onReject = () => {
-    const inputs = form.elements[vendorInputName];
+    const inputs = form.elements[inputName];
     for (const input of inputs) {
       input.checked = false;
     }
@@ -82,7 +82,7 @@ const createCookiePopupVendorForm = async () => {
   const form = document.createElement("form");
   form.addEventListener("submit", handleSubmit);
 
-  const vendorList = await createCookiePopupVendorList(vendorInputName);
+  const vendorList = createCookiePopupVendorList({ inputName, vendors });
   form.append(...vendorList);
 
   const [accept, reject] = createCookiePopupFormButtons({ onReject });
@@ -91,8 +91,7 @@ const createCookiePopupVendorForm = async () => {
   return form;
 };
 
-const createCookiePopupVendorList = async (inputName) => {
-  const { vendors } = await fetchVendors();
+const createCookiePopupVendorList = ({ inputName, vendors }) => {
   const vendorComponents = Object.values(vendors).map((vendor) =>
     createCookiePopupVendor({ ...vendor, inputName })
   );
@@ -177,9 +176,10 @@ const wrapInModal = (element) => {
 };
 
 const setup = async () => {
+  const { vendors } = await fetchVendors();
   disableScrolling();
   addBlur();
-  await addCookiePopup();
+  addCookiePopup(vendors);
 };
 
 const teardown = () => {
