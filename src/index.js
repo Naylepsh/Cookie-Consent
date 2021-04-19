@@ -1,3 +1,5 @@
+import "./styles.css";
+
 /**
  * BLUR
  */
@@ -197,21 +199,6 @@ const removeCookiePopup = () => {
   }
 };
 
-const setup = async () => {
-  if (!hasCookie(COOKIE_NAME)) {
-    const { vendors } = await fetchVendors();
-    disableScrolling();
-    addBlur();
-    addCookiePopup(vendors);
-  }
-};
-
-const teardown = () => {
-  removeCookiePopup();
-  removeBlur();
-  enableScrolling();
-};
-
 /**
  * COMPONENTS
  */
@@ -294,6 +281,21 @@ const addHours = (date, hours) => {
   const copy = new Date(date);
   copy.setTime(copy.getTime() + hours * 60 * 60 * 1000);
   return copy;
+};
+
+const setup = async () => {
+  if (!hasCookie(COOKIE_NAME)) {
+    const { vendors } = await fetchVendors();
+    disableScrolling();
+    addBlur();
+    addCookiePopup(vendors);
+  }
+};
+
+const teardown = () => {
+  removeCookiePopup();
+  removeBlur();
+  enableScrolling();
 };
 
 window.onload = async () => {
