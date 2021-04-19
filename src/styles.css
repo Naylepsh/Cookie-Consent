@@ -25,7 +25,7 @@ body.disable-scroll {
 }
 
 .primary {
-  border: none;
+  border: 1px solid #4caf50;
   background-color: #4caf50;
   color: white;
 }
