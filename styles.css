@@ -67,6 +67,7 @@ body.disable-scroll {
 
 ul.vendor-list {
   list-style-type: none;
+  padding: 0;
 }
 
 ul.vendor-list > li {
@@ -105,17 +106,17 @@ ul.vendor-list > li:not(:last-child) {
 }
 
 .primary:hover {
-  background-color: #62a6dd;
+  background-color: #39913b;
 }
 
 .secondary {
-  background-color: white;
+  background-color: #ffffff;
   color: black;
   border: 1px solid black;
 }
 
 .secondary:hover {
-  background-color: #c3c8cc;
+  background-color: #e7e5e5;
 }
 
 .hidden {
