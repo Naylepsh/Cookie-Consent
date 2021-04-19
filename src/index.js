@@ -1,6 +1,5 @@
 import { addBlur, removeBlur } from "./components/blur/blur";
 import { disableScrolling, enableScrolling } from "./utils/scrolling";
-import "./styles.css";
 import { hasCookie } from "./utils/cookies";
 import { fetchVendors } from "./utils/fetch";
 import {
@@ -8,6 +7,7 @@ import {
   addCookiePopup,
   removeCookiePopup,
 } from "./components/cookie-popup/cookie-popup";
+import "./styles.css";
 
 const setup = async () => {
   if (!hasCookie(COOKIE_NAME)) {
