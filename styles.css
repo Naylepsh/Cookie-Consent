@@ -61,6 +61,10 @@ body.disable-scroll {
   background: white;
 }
 
+ul.vendor-list {
+  list-style-type: none;
+}
+
 .switch {
   position: relative;
   display: inline-block;

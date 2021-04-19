@@ -82,7 +82,7 @@ const createCookiePopupVendorForm = (vendors) => {
   form.addEventListener("submit", (event) => handleSubmit(event, inputName));
 
   const vendorList = createCookiePopupVendorList({ inputName, vendors });
-  form.append(...vendorList);
+  form.append(vendorList);
 
   const [accept, reject] = createCookiePopupFormButtons({
     onReject: handleReject,
@@ -114,10 +114,19 @@ const addHours = (date, hours) => {
 };
 
 const createCookiePopupVendorList = ({ inputName, vendors }) => {
-  const vendorComponents = Object.values(vendors).map((vendor) =>
-    createCookiePopupVendor({ ...vendor, inputName })
-  );
-  return vendorComponents;
+  const vendorList = document.createElement("ul");
+  vendorList.classList.add("vendor-list");
+
+  const vendorListItems = Object.values(vendors).map((vendor) => {
+    const vendorComponent = createCookiePopupVendor({ ...vendor, inputName });
+    const li = document.createElement("li");
+    li.appendChild(vendorComponent);
+    return li;
+  });
+
+  vendorList.append(...vendorListItems);
+
+  return vendorList;
 };
 
 const createCookiePopupVendor = ({ id, name, policyUrl, inputName }) => {
