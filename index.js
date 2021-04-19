@@ -146,7 +146,11 @@ const createCookiePopupVendorListItem = ({
   const vendorDetailsComponent = document.createElement("div");
   vendorDetailsComponent.append(nameComponent, policyComponent);
 
-  const slider = createCookiePopupVendorSlider({ inputName, vendorId: id });
+  const slider = createCookiePopupVendorSlider({
+    inputName,
+    vendorId: id,
+    checked: true,
+  });
   const sliderWrapper = document.createElement("div");
   sliderWrapper.appendChild(slider);
   sliderWrapper.classList.add("switch-wrapper");
@@ -157,13 +161,14 @@ const createCookiePopupVendorListItem = ({
   return vendorComponent;
 };
 
-const createCookiePopupVendorSlider = ({ inputName, vendorId }) => {
+const createCookiePopupVendorSlider = ({ inputName, vendorId, checked }) => {
   const label = document.createElement("label");
   label.classList.add("switch");
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.name = inputName;
+  checkbox.checked = !!checked;
   checkbox.dataset.id = vendorId;
 
   const slider = createCheckboxSlider();
