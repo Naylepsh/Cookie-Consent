@@ -81,9 +81,7 @@ ul.vendor-list > li:not(:last-child) {
 }
 
 .cookie-popup form button {
-  border: none;
   border-radius: 4px;
-  color: white;
   padding: 10px 16px;
   text-align: center;
   text-decoration: none;
@@ -103,9 +101,9 @@ ul.vendor-list > li:not(:last-child) {
 }
 
 .primary {
-  /* background-color: #76b6ea; */
-  color: #76b6ea;
-  border: 1px solid #76b6ea;
+  border: none;
+  background-color: #4caf50;
+  color: white;
 }
 
 .primary:hover {
@@ -113,9 +111,9 @@ ul.vendor-list > li:not(:last-child) {
 }
 
 .secondary {
-  /* background-color: #c3c8cc; */
-  color: #c3c8cc;
-  border: 1px solid #c3c8cc;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
 
 .secondary:hover {
@@ -123,7 +121,9 @@ ul.vendor-list > li:not(:last-child) {
 }
 
 .danger {
-  background-color: #bd545e;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
 
 .danger:hover {
