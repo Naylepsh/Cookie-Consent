@@ -51,18 +51,34 @@ body.disable-scroll {
   flex-direction: column;
   justify-content: center;
   width: 80%;
-  border: 5px solid black;
-  padding: 20px 40px;
-  margin: auto;
-  margin-top: 20px;
 }
 
 .cookie-popup {
   background: white;
+  padding: 20px 40px;
+  margin: 20px auto;
+  border: 2px solid black;
+  border-radius: 6px;
 }
 
 ul.vendor-list {
   list-style-type: none;
+}
+
+ul.vendor-list > li {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+ul.vendor-list > li:not(:last-child) {
+  border-bottom: 2px solid lightgray;
+}
+
+.switch-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .switch {

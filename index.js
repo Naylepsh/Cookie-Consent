@@ -118,10 +118,7 @@ const createCookiePopupVendorList = ({ inputName, vendors }) => {
   vendorList.classList.add("vendor-list");
 
   const vendorListItems = Object.values(vendors).map((vendor) => {
-    const vendorComponent = createCookiePopupVendor({ ...vendor, inputName });
-    const li = document.createElement("li");
-    li.appendChild(vendorComponent);
-    return li;
+    return createCookiePopupVendorListItem({ ...vendor, inputName });
   });
 
   vendorList.append(...vendorListItems);
@@ -129,18 +126,33 @@ const createCookiePopupVendorList = ({ inputName, vendors }) => {
   return vendorList;
 };
 
-const createCookiePopupVendor = ({ id, name, policyUrl, inputName }) => {
-  const vendorComponent = document.createElement("li");
-
+const createCookiePopupVendorListItem = ({
+  id,
+  name,
+  policyUrl,
+  inputName,
+}) => {
   const nameComponent = document.createElement("p");
   nameComponent.innerText = name;
 
-  const policyUrlComponent = document.createElement("p");
+  const policyUrlComponent = document.createElement("a");
+  policyUrlComponent.href = policyUrl;
   policyUrlComponent.innerText = policyUrl;
 
-  const slider = createCookiePopupVendorSlider({ inputName, vendorId: id });
+  const policyComponent = document.createElement("span");
+  policyComponent.innerText = "Policy Url: ";
+  policyComponent.appendChild(policyUrlComponent);
 
-  vendorComponent.append(nameComponent, policyUrlComponent, slider);
+  const vendorDetailsComponent = document.createElement("div");
+  vendorDetailsComponent.append(nameComponent, policyComponent);
+
+  const slider = createCookiePopupVendorSlider({ inputName, vendorId: id });
+  const sliderWrapper = document.createElement("div");
+  sliderWrapper.appendChild(slider);
+  sliderWrapper.classList.add("switch-wrapper");
+
+  const vendorComponent = document.createElement("li");
+  vendorComponent.append(vendorDetailsComponent, sliderWrapper);
 
   return vendorComponent;
 };
@@ -176,9 +188,9 @@ const createCookiePopupFormButtons = ({ onReject }) => {
 
 const createButton = ({ text, onClick, type }) => {
   const button = document.createElement("button");
-  button.innerText = text;
-  button.type = type;
-  button.addEventListener("click", onClick);
+  if (text) button.innerText = text;
+  if (type) button.type = type;
+  if (onClick) button.addEventListener("click", onClick);
   return button;
 };
 
