@@ -1,0 +1,21 @@
+.modal {
+  display: block !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: calc(var(--blur-z-index) + 1);
+  width: 100%;
+}
+
+.modal-dialog {
+  overflow-y: initial !important;
+}
+
+.modal-body {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.hidden {
+  display: none;
+}

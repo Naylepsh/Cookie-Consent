@@ -1,0 +1,16 @@
+.accordion-toggler {
+  width: 100%;
+  display: block;
+  text-align: left;
+}
+
+.accordion-toggler:after {
+  content: "\002B";
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.accordion-toggler.active:after {
+  content: "\2212";
+}

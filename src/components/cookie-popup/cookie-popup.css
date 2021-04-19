@@ -1,0 +1,40 @@
+.cookie-popup {
+  background: rgb(252, 252, 252);
+  padding: 20px 40px;
+  margin: 20px auto;
+  border: 2px solid black;
+  max-width: 800px;
+}
+
+.cookie-popup-title {
+  text-align: center;
+}
+
+ul.vendor-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul.vendor-list > li {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+  margin: 0 20px;
+}
+
+ul.vendor-list > li:not(:last-child) {
+  border-bottom: 2px solid lightgray;
+}
+
+.cookie-popup form button {
+  padding: 10px 16px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px 20px 10px 0;
+}
+
+.vendor-name {
+  font-weight: bold;
+}
