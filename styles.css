@@ -103,23 +103,27 @@ ul.vendor-list > li:not(:last-child) {
 }
 
 .primary {
-  background-color: #2196f3;
+  /* background-color: #76b6ea; */
+  color: #76b6ea;
+  border: 1px solid #76b6ea;
 }
 
 .primary:hover {
-  background-color: #0d6efd;
+  background-color: #62a6dd;
 }
 
 .secondary {
-  background-color: #8d9399;
+  /* background-color: #c3c8cc; */
+  color: #c3c8cc;
+  border: 1px solid #c3c8cc;
 }
 
 .secondary:hover {
-  background-color: #6c757d;
+  background-color: #c3c8cc;
 }
 
 .danger {
-  background-color: #dc3545;
+  background-color: #bd545e;
 }
 
 .danger:hover {

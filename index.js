@@ -33,7 +33,7 @@ const enableScrolling = () => {
  * COOKIE POPUP
  */
 let popup;
-const COOKIE_NAME = "acceptedVendors";
+const COOKIE_NAME = "acceptedVendorIds";
 
 const addCookiePopup = (vendors) => {
   popup = createCookiePopup(vendors);
@@ -107,15 +107,13 @@ const createCookiePopupVendorForm = (vendors) => {
 
 const saveVendorsInCookie = (event, inputName) => {
   const inputs = event.target.elements[inputName];
-  const acceptedVendors = Array.from(inputs)
+  const acceptedVendorIds = Array.from(inputs)
     .filter((input) => input.checked)
-    .map((input) => ({
-      id: parseInt(input.dataset.id),
-    }));
+    .map((input) => parseInt(input.dataset.id));
 
   saveCookie(
     COOKIE_NAME,
-    JSON.stringify(acceptedVendors),
+    JSON.stringify(acceptedVendorIds),
     addHours(new Date(), 24)
   );
 };
