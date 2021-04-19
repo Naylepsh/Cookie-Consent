@@ -2,13 +2,6 @@
   --blur-z-index: 1;
 }
 
-/* not needed for tool */
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-
 body {
   overflow: auto;
 }

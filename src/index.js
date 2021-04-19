@@ -7,7 +7,7 @@ import {
   addCookiePopup,
   removeCookiePopup,
 } from "./components/cookie-popup/cookie-popup";
-import "./styles.css";
+import "./global.css";
 
 const setup = async () => {
   if (!hasCookie(COOKIE_NAME)) {
