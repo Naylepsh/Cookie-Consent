@@ -75,6 +75,26 @@ ul.vendor-list > li:not(:last-child) {
   border-bottom: 2px solid lightgray;
 }
 
+.cookie-popup form button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.primary {
+  background-color: #2196f3;
+}
+
+.danger {
+  background-color: #bb2d3b;
+}
+
 .switch-wrapper {
   display: flex;
   justify-content: center;
