@@ -61,6 +61,10 @@ body.disable-scroll {
   border-radius: 6px;
 }
 
+.cookie-popup-title {
+  text-align: center;
+}
+
 ul.vendor-list {
   list-style-type: none;
 }

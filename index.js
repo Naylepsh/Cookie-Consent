@@ -57,8 +57,8 @@ const createCookiePopupContainer = () => {
 };
 
 const createCookieTitle = (title) => {
-  const titleComponent = document.createElement("p");
-  titleComponent.classList.add("cookie-pop-up-title");
+  const titleComponent = document.createElement("h2");
+  titleComponent.classList.add("cookie-popup-title");
   titleComponent.innerText = title;
   return titleComponent;
 };
