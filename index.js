@@ -82,12 +82,25 @@ const createCookiePopupVendorForm = (vendors) => {
   form.addEventListener("submit", (event) => handleSubmit(event, inputName));
 
   const vendorList = createCookiePopupVendorList({ inputName, vendors });
-  form.append(vendorList);
+
+  const SHOW = "Show vendor list";
+  const CLOSE = "Close vendor list";
+  const vendorListToggler = createButton({
+    text: SHOW,
+    classes: ["vendors-toggler", "secondary"],
+    onClick: (event) => {
+      vendorList.classList.toggle("hidden");
+      vendorListToggler.innerText =
+        vendorListToggler.innerText === SHOW ? CLOSE : SHOW;
+      event.preventDefault();
+    },
+  });
 
   const [accept, reject] = createCookiePopupFormButtons({
     onReject: handleReject,
   });
-  form.append(accept, reject);
+
+  form.append(vendorListToggler, vendorList, accept, reject);
 
   return form;
 };
@@ -115,7 +128,7 @@ const addHours = (date, hours) => {
 
 const createCookiePopupVendorList = ({ inputName, vendors }) => {
   const vendorList = document.createElement("ul");
-  vendorList.classList.add("vendor-list");
+  vendorList.classList.add("vendor-list", "hidden");
 
   const vendorListItems = Object.values(vendors).map((vendor) => {
     return createCookiePopupVendorListItem({ ...vendor, inputName });
@@ -133,6 +146,7 @@ const createCookiePopupVendorListItem = ({
   inputName,
 }) => {
   const nameComponent = document.createElement("p");
+  nameComponent.classList.add("vendor-name");
   nameComponent.innerText = name;
 
   const policyUrlComponent = document.createElement("a");
@@ -185,9 +199,14 @@ const createCheckboxSlider = () => {
 };
 
 const createCookiePopupFormButtons = ({ onReject }) => {
-  const accept = createButton({ text: "Accept", classes: ["primary"] });
+  const accept = createButton({
+    text: "Accept",
+    type: "submit",
+    classes: ["primary"],
+  });
   const reject = createButton({
     text: "Reject",
+    type: "submit",
     onClick: onReject,
     classes: ["danger"],
   });

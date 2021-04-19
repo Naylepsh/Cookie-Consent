@@ -54,11 +54,12 @@ body.disable-scroll {
 }
 
 .cookie-popup {
-  background: white;
+  background: rgb(252, 252, 252);
   padding: 20px 40px;
   margin: 20px auto;
   border: 2px solid black;
   border-radius: 6px;
+  max-width: 800px;
 }
 
 .cookie-popup-title {
@@ -81,22 +82,52 @@ ul.vendor-list > li:not(:last-child) {
 
 .cookie-popup form button {
   border: none;
+  border-radius: 4px;
   color: white;
-  padding: 15px 32px;
+  padding: 10px 16px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-  margin: 0 10px;
+  margin: 10px 20px 10px 0;
+}
+
+.vendor-name {
+  font-weight: bold;
+}
+
+.vendors-toggler {
+  width: 100%;
+  display: block;
 }
 
 .primary {
   background-color: #2196f3;
 }
 
+.primary:hover {
+  background-color: #0d6efd;
+}
+
+.secondary {
+  background-color: #8d9399;
+}
+
+.secondary:hover {
+  background-color: #6c757d;
+}
+
 .danger {
+  background-color: #dc3545;
+}
+
+.danger:hover {
   background-color: #bb2d3b;
+}
+
+.hidden {
+  display: none;
 }
 
 .switch-wrapper {
