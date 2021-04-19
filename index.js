@@ -82,27 +82,36 @@ const createCookiePopupVendorForm = (vendors) => {
   form.addEventListener("submit", (event) => handleSubmit(event, inputName));
 
   const vendorList = createCookiePopupVendorList({ inputName, vendors });
-
-  const SHOW = "Show vendor list";
-  const CLOSE = "Close vendor list";
-  const vendorListToggler = createButton({
-    text: SHOW,
-    classes: ["vendors-toggler", "secondary"],
-    onClick: (event) => {
-      vendorList.classList.toggle("hidden");
-      vendorListToggler.innerText =
-        vendorListToggler.innerText === SHOW ? CLOSE : SHOW;
-      event.preventDefault();
-    },
+  const vendorsAccordion = createAccordion({
+    title: "Vendor list",
+    element: vendorList,
   });
 
   const [accept, reject] = createCookiePopupFormButtons({
     onReject: handleReject,
   });
 
-  form.append(vendorListToggler, vendorList, accept, reject);
+  form.append(vendorsAccordion, accept, reject);
 
   return form;
+};
+
+const createAccordion = ({ title, element }) => {
+  const toggler = createButton({
+    classes: ["secondary", "accordion-toggler"],
+    text: title,
+    onClick: (event) => {
+      element.classList.toggle("hidden");
+      event.target.classList.toggle("active");
+      event.preventDefault();
+    },
+  });
+  const accordion = document.createElement("div");
+  element.classList.add("hidden");
+
+  accordion.append(toggler, element);
+
+  return accordion;
 };
 
 const saveVendorsInCookie = (event, inputName) => {

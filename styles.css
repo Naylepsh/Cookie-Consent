@@ -82,7 +82,6 @@ ul.vendor-list > li:not(:last-child) {
 
 .cookie-popup form button {
   padding: 10px 16px;
-  text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
@@ -94,9 +93,21 @@ ul.vendor-list > li:not(:last-child) {
   font-weight: bold;
 }
 
-.vendors-toggler {
+.accordion-toggler {
   width: 100%;
   display: block;
+  text-align: left;
+}
+
+.accordion-toggler:after {
+  content: "\002B";
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.accordion-toggler.active:after {
+  content: "\2212";
 }
 
 .primary {
