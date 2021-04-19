@@ -206,7 +206,7 @@ const createCookiePopupFormButtons = ({ onReject }) => {
     text: "Reject",
     type: "submit",
     onClick: onReject,
-    classes: ["danger"],
+    classes: ["secondary"],
   });
 
   return [accept, reject];

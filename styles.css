@@ -58,7 +58,6 @@ body.disable-scroll {
   padding: 20px 40px;
   margin: 20px auto;
   border: 2px solid black;
-  border-radius: 6px;
   max-width: 800px;
 }
 
@@ -81,7 +80,6 @@ ul.vendor-list > li:not(:last-child) {
 }
 
 .cookie-popup form button {
-  border-radius: 4px;
   padding: 10px 16px;
   text-align: center;
   text-decoration: none;
@@ -118,16 +116,6 @@ ul.vendor-list > li:not(:last-child) {
 
 .secondary:hover {
   background-color: #c3c8cc;
-}
-
-.danger {
-  background-color: white;
-  color: black;
-  border: 1px solid black;
-}
-
-.danger:hover {
-  background-color: #bb2d3b;
 }
 
 .hidden {
@@ -181,11 +169,11 @@ ul.vendor-list > li:not(:last-child) {
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #4caf50;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  box-shadow: 0 0 1px #4caf50;
 }
 
 input:checked + .slider:before {
