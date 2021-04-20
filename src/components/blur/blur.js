@@ -1,18 +1,13 @@
 import "./blur.css";
 
-let blur;
-
 export const addBlur = () => {
-  blur = createBlur();
-  document.body.appendChild(blur);
-};
-
-const createBlur = () => {
-  const blur = document.createElement("div");
-  blur.classList.add("blur");
-  return blur;
+  for (const child of document.body.children) {
+    child.classList.add("blur");
+  }
 };
 
 export const removeBlur = () => {
-  blur.remove();
+  for (const child of document.body.children) {
+    child.classList.remove("blur");
+  }
 };
