@@ -1,5 +1,5 @@
 export const saveCookie = (key, value, expiresIn) => {
-  document.cookie = `${key}=${value}; expires=${expiresIn}`;
+  document.cookie = `${key}=${value}; expires=${expiresIn}; sameSite=Lax`;
 };
 
 export const hasCookie = (key) => {
