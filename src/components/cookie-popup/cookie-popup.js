@@ -50,6 +50,7 @@ const createCookiePopupVendorForm = ({ vendors, onSubmit }) => {
   const handleSubmit = (event) => {
     saveVendorsInCookie(event, inputName);
     onSubmit();
+    event.preventDefault();
   };
 
   const handleReject = () => {

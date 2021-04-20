@@ -4,6 +4,7 @@ import "./accordion.css";
 export const wrapInAccordion = ({ title, element }) => {
   const toggler = createButton({
     classes: ["secondary", "accordion-toggler"],
+    type: "button",
     text: title,
     onClick: (event) => {
       element.classList.toggle("hidden");
